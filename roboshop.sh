@@ -2,7 +2,7 @@
 
 SG_ID="sg-046e70dc8faeb0a65"
 AMI_ID="ami-0220d79f3f480ecf5"
-ZONE_ID="Z05013202FKF0ZL12WAOP"
+ZONE_ID="Z013376417K0TSZFYZ834"
 DOMAIN_NAME="ankitha.online"
 
 for instance in $@
