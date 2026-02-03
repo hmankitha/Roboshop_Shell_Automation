@@ -42,27 +42,30 @@ else
     echo -e "Roboshop user already exit ...$Y SKIPPING $N"
 fi
 
-mkdir -p /app
+mkdir -p /app &>>$LOGS_FILE
 VALIDATE $? "creating app directory"
 
-curl -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue-v3.zip 
+curl -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue-v3.zip &>>$LOGS_FILE
 VALIDATE $? "Downloading catalogue code"
 
-cd /app
+cd /app &>>$LOGS_FILE
 VALIDATE $? "Moving to app directory"
 
-unzip /tmp/catalogue.zip
+rm -rf /app/*
+VALIDATE $? "Removing existing code"
+
+unzip /tmp/catalogue.zip &>>$LOGS_FILE
 VALIDATE $? "unziping the file"
 
-npm install
+npm install &>>$LOGS_FILE
 VALIDATE $? "installing the build tool"
 
-cp catalogue.service /etc/systemd/system/catalogue.service
+cp catalogue.service /etc/systemd/system/catalogue.service &>>$LOGS_FILE
 VALIDATE $? "Created systemctl services"
 
-systemctl daemon-reload
-systemctl enable catalogue
-systemctl start catalogue
+systemctl daemon-reload &>>$LOGS_FILE
+systemctl enable catalogue &>>$LOGS_FILE
+systemctl start catalogue &>>$LOGS_FILE
 VALIDATE $? "Starting and enabling Catalogue"
 
 
