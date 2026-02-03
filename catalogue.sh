@@ -6,9 +6,9 @@ LOGS_FILE="$LOGS_FOLDER/$0.log"
 R="\e[31m"
 G="\e[32m"
 Y="\e[33m"
-N="\e[33m"
+N="\e[0m"
 
-if[ $USERID -ne 0 ]; then
+if [ $USERID -ne 0 ]; then
     echo -e "$R Please run this script with root user access $N" | tee -a $LOGS_FILE
     exit 1
 fi
@@ -30,7 +30,7 @@ VALIDATE $? "Disabling Nodejs Default version"
 dnf module enable nodejs:20 -y &>>$LOGS_FILE
 VALIDATE $? "Enabling NodeJS 20"
 
-dnf install nodejs -y &>>LOGS_FILE
+dnf install nodejs -y &>>$LOGS_FILE
 VALIDATE $? "Install NodeJS"
 
 useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop
